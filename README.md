@@ -76,7 +76,18 @@ The purpose of this project is to develop a modern, production-ready full-stack 
 
 * Frontend
 
+## 📦 Seeds
 
+
+Running all filling seed functions
+```
+npm run seed
+```
+
+Run only  a certain function
+```
+node --loader ts-node/esm NAMEFILES.js
+```
 ## 🔌 External Services
 - NestJS Mailer (@nestjs-modules/mailer) — service integration used for sending email notifications to users.
 
