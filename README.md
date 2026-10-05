@@ -1,5 +1,5 @@
-## TODO LIST 
-Simple todo list application
+## Notes
+Simple notes application
 
 ## 🛒 Project Purpose 
 The purpose of this project is to develop a modern, production-ready full-stack Task Management Application designed to demonstrate clean architecture, robust state management, and full-stack development best practices. Using NestJS on the backend and Next.js on the frontend with TypeScript across the entire stack, this application serves as a comprehensive playground for implementing secure user authentication, end-to-end type safety, complex CRUD operations, and thorough test coverage (unit and integration testing).
@@ -47,8 +47,8 @@ The purpose of this project is to develop a modern, production-ready full-stack 
 
 
   ```bash
-  git clone https://github.com/ArtemNakh/ToDoList.git
-  cd ToDoList/todolist_backend
+  git clone https://github.com/ArtemNakh/notes.git
+  cd notes/notes_backend
   npm install
   ```
 
