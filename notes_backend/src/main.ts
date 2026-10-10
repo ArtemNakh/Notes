@@ -14,9 +14,12 @@ async function bootstrap() {
       transform: true,
     }),
   );
-
+  app.enableCors({
+   origin: configService.get<string>('CORS_ORIGIN'),
+    credentials: true,
+  });
   app.use(redisSessionConfig(configService));
-  
+
   const configSwagger = new DocumentBuilder()
     .setTitle('TodoList API')
     .setDescription('API для керування завданнями та нотатками')
