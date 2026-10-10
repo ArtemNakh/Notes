@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+@theme{
+--color-amber-150:#ffeda3;
+
+}

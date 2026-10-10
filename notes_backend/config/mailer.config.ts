@@ -16,6 +16,6 @@ export const getMailerConfig = async (
 		}
 	},
 	defaults: {
-		from: `ToDo list ${configService.getOrThrow<string>('MAIL_LOGIN')}`
+		from: `Notes ${configService.getOrThrow<string>('MAIL_LOGIN')}`
 	}
 })

@@ -21,7 +21,7 @@ async function bootstrap() {
   app.use(redisSessionConfig(configService));
 
   const configSwagger = new DocumentBuilder()
-    .setTitle('TodoList API')
+    .setTitle('Notes API')
     .setDescription('API для керування завданнями та нотатками')
     .setVersion('1.0')
     .build();

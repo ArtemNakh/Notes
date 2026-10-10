@@ -10,17 +10,17 @@ export function ConfirmationTemplate({
   domain,
   token,
 }: ConfirmationTemplateProps) {
-  const confirmLink = `${domain}/c-auth/mail-verification?token=${token}`;
+  const confirmLink = `${domain}/auth/email-verification?token=${token}`;
 
   return (
     <Html>
       <Body>
         <Heading>Підтвердження пошти</Heading>
         <Text>
-          Привіт! Щоб підтвердити свій адрес електронної пошти, будь-ласка,
+          Вітаємо! Для підтвердження адресу електронної пошти, будь-ласка,
           перейди по наступному посиланню
         </Text>
-        <Link href={confirmLink}>Підтвердити пошту</Link>
+        <Link href={confirmLink}>Підтвердження пошти</Link>
       </Body>
     </Html>
   );

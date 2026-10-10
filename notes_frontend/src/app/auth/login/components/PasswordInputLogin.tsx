@@ -21,7 +21,7 @@ export default function PasswordInputLogin() {
           <button
             type="button"
             onClick={() => setShowPassword((prev) => !prev)}
-            className="absolute right-2 top-1/2 -translate-y-10/12 text-amber-700 hover:text-amber-900 transition-colors"
+            className="absolute right-2 top-1/2 -translate-y-10/12 text-amber-700 hover:text-amber-900 transition-colors cursor-pointer"
           >
             {showPassword ? (
               <EyeOff className="h-5 w-5" />

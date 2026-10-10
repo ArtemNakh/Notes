@@ -1,17 +1,18 @@
 "use client";
 import { Field, Form, Formik } from "formik";
-import IRegistrationUser from "./RegistrationUser.schema";
+import IRegistrationUser from "./IRegistrationUser";
 import Image from "next/image";
 import { toast } from "sonner";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import RegistrationSchema from "./Registration.schema";
 import { PostService } from "../login/loginService";
+import Link from "next/link";
 
 export default function RegistrationPage() {
   const OnSubmit = async (values: IRegistrationUser) => {
     try {
-      console.log(`values`,values);
+      console.log(`values`, values);
       const data = await PostService(values, "Auth/v1/registration");
       console.log(data);
       toast.success("Успішна реєтрація!");
@@ -32,10 +33,10 @@ export default function RegistrationPage() {
   return (
     <>
       <div className="w-full h-screen flex justify-center items-center ">
-        <div className="bg-amber-200 w-[75vw] h-[80vh] rounded-3xl flex">
+        <div className="border border-amber-500 bg-amber-150 w-[75vw] h-[80vh] rounded-3xl flex">
           {/* left */}
           <div className="w-7/12 rounded-3xl flex flex-col items-center justify-center">
-            <label className="text-5xl fint-medium text-amber-700 mt-20">
+            <label className="text-5xl  fint-medium text-amber-700 ">
               Registration
             </label>
 
@@ -56,7 +57,7 @@ export default function RegistrationPage() {
                 };
 
                 return (
-                  <Form className="mt-15 w-full h-full flex flex-col items-center ">
+                  <Form className="mt-15 w-full  flex flex-col items-center ">
                     <fieldset className="border border-amber-700 rounded-2xl pl-2 py-0.5 w-100">
                       <legend className="px-1 text-lg text-amber-700 font-medium">
                         Name
@@ -69,7 +70,6 @@ export default function RegistrationPage() {
                         placeholder=""
                       />
                     </fieldset>
-
                     <fieldset className="mt-5 border border-amber-700 rounded-2xl pl-2 py-0.5 w-100">
                       <legend className="px-1 text-lg text-amber-700 font-medium">
                         Surname
@@ -82,7 +82,6 @@ export default function RegistrationPage() {
                         placeholder=""
                       />
                     </fieldset>
-
                     <fieldset className="mt-5 border border-amber-700 rounded-2xl pl-2 py-0.5 w-100">
                       <legend className="px-1 text-lg text-amber-700 font-medium">
                         Email
@@ -95,7 +94,6 @@ export default function RegistrationPage() {
                         placeholder=""
                       />
                     </fieldset>
-
                     <fieldset className="mt-5 border border-amber-700 rounded-2xl pl-2 py-0.5 w-100">
                       <legend className="px-1 text-lg text-amber-700 font-medium">
                         Password
@@ -121,7 +119,6 @@ export default function RegistrationPage() {
                         </button>
                       </div>
                     </fieldset>
-
                     <fieldset className="mt-5 border border-amber-700 rounded-2xl pl-2 py-0.5 w-100">
                       <legend className="px-1 text-lg text-amber-700 font-medium">
                         Repeat password
@@ -147,18 +144,26 @@ export default function RegistrationPage() {
                         </button>
                       </div>
                     </fieldset>
-
                     <button
                       type="submit"
                       onClick={handleFormSubmit}
-                      className="border border-amber-900 rounded-3xl py-2 px-5 text-lg mt-5 text-amber-900 hover:bg-amber-300 transition-colors cursor-pointer"
+                     
+                      className="border border-amber-900 rounded-3xl py-2 px-5 text-lg mt-5 text-amber-900 active:text-amber-700 hover:bg-amber-300 bg-amber-150 active:bg-amber-400 hover:transition-colors cursor-pointer hover:duration-400 outline-none"
                     >
                       Registration
-                    </button>
+                    </button>{" "}
                   </Form>
                 );
               }}
             </Formik>
+            <div className="self-center mt-5    ">
+              <Link
+                href={"/auth/login"}
+                className="rounded-3xl px-2 py-1  text-amber-800 hover:text-amber-600 hover:bg-amber-200 active:bg-amber-300 transition-colors duration-200 "
+              >
+                Login
+              </Link>
+            </div>
           </div>
 
           {/* right */}

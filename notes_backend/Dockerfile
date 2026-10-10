@@ -20,7 +20,7 @@ EXPOSE 4000
 CMD ["npm", "start"]
 
 #Збір образа
-#docker build -t my-backend ./todolist_backend
+#docker build -t my-backend ./Notes_backend
 
 #Запуск контейнера---
 #docker run -p 3000:3000 my-backend
