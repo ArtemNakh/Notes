@@ -6,8 +6,12 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import RegistrationSchema from "./Registration.schema";
-import { PostService } from "../login/loginService";
+import { PostService } from "../../../components/lib/PostService";
 import Link from "next/link";
+import SubmitFormButton from "@/components/ui/components/Form/SubmitFormButton";
+import PasswordField from "@/components/ui/components/Form/PasswordField";
+import FieldForm from "@/components/ui/components/Form/FieldForm";
+import LoginLink from "@/components/ui/components/LoginLink";
 
 export default function RegistrationPage() {
   const OnSubmit = async (values: IRegistrationUser) => {
@@ -46,123 +50,23 @@ export default function RegistrationPage() {
               validationSchema={RegistrationSchema}
               validateOnMount={true}
             >
-              {({ errors, isValid }) => {
-                const handleFormSubmit = () => {
-                  if (!isValid) {
-                    const firstError = Object.values(errors)[0];
-                    if (firstError) {
-                      toast.error(firstError as string);
-                    }
-                  }
-                };
-
+              {() => {
                 return (
                   <Form className="mt-15 w-full  flex flex-col items-center ">
-                    <fieldset className="border border-amber-700 rounded-2xl pl-2 py-0.5 w-100">
-                      <legend className="px-1 text-lg text-amber-700 font-medium">
-                        Name
-                      </legend>
-                      <Field
-                        id="name"
-                        name="name"
-                        type="text"
-                        className="pl-2 -translate-y-1 text-xl w-full bg-transparent outline-none  text-amber-800"
-                        placeholder=""
-                      />
-                    </fieldset>
-                    <fieldset className="mt-5 border border-amber-700 rounded-2xl pl-2 py-0.5 w-100">
-                      <legend className="px-1 text-lg text-amber-700 font-medium">
-                        Surname
-                      </legend>
-                      <Field
-                        id="surname"
-                        name="surname"
-                        type="text"
-                        className="pl-2 -translate-y-1 text-xl w-full bg-transparent outline-none  text-amber-800"
-                        placeholder=""
-                      />
-                    </fieldset>
-                    <fieldset className="mt-5 border border-amber-700 rounded-2xl pl-2 py-0.5 w-100">
-                      <legend className="px-1 text-lg text-amber-700 font-medium">
-                        Email
-                      </legend>
-                      <Field
-                        id="email"
-                        name="email"
-                        type="email"
-                        className="pl-2 -translate-y-1 text-xl w-full bg-transparent outline-none  text-amber-800"
-                        placeholder=""
-                      />
-                    </fieldset>
-                    <fieldset className="mt-5 border border-amber-700 rounded-2xl pl-2 py-0.5 w-100">
-                      <legend className="px-1 text-lg text-amber-700 font-medium">
-                        Password
-                      </legend>
-                      <div className="relative">
-                        <Field
-                          id="password"
-                          name="password"
-                          type={showPassword ? "text" : "password"}
-                          className="pl-2 pr-10 text-xl w-full bg-transparent outline-none -translate-y-1 text-amber-800"
-                          placeholder=""
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword((prev) => !prev)}
-                          className="absolute right-2 top-1/2 -translate-y-10/12 text-amber-700 hover:text-amber-900 transition-colors"
-                        >
-                          {showPassword ? (
-                            <EyeOff className="h-5 w-5" />
-                          ) : (
-                            <Eye className="h-5 w-5" />
-                          )}
-                        </button>
-                      </div>
-                    </fieldset>
-                    <fieldset className="mt-5 border border-amber-700 rounded-2xl pl-2 py-0.5 w-100">
-                      <legend className="px-1 text-lg text-amber-700 font-medium">
-                        Repeat password
-                      </legend>
-                      <div className="relative">
-                        <Field
-                          id="passwordRepeat"
-                          name="passwordRepeat"
-                          type={showPassword ? "text" : "password"}
-                          className="pl-2 pr-10 text-xl w-full bg-transparent outline-none -translate-y-1 text-amber-800"
-                          placeholder=""
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword((prev) => !prev)}
-                          className="absolute right-2 top-1/2 -translate-y-10/12 text-amber-700 hover:text-amber-900 transition-colors"
-                        >
-                          {showPassword ? (
-                            <EyeOff className="h-5 w-5" />
-                          ) : (
-                            <Eye className="h-5 w-5" />
-                          )}
-                        </button>
-                      </div>
-                    </fieldset>
-                    <button
-                      type="submit"
-                      onClick={handleFormSubmit}
-                     
-                      className="border border-amber-900 rounded-3xl py-2 px-5 text-lg mt-5 text-amber-900 active:text-amber-700 hover:bg-amber-300 bg-amber-150 active:bg-amber-400 hover:transition-colors cursor-pointer hover:duration-400 outline-none"
-                    >
-                      Registration
-                    </button>{" "}
+                    <FieldForm text="Name" id="name" type="text" />
+                    <FieldForm text="Surname" id="surname" type="text" />
+                    <FieldForm text="Email" id="email" type="email" />
+
+                    <PasswordField text="Password" id="password" />
+                    <PasswordField text="Repeat Password" id="passwordRepeat" />
+
+                    <SubmitFormButton text="Registration" />
                   </Form>
                 );
               }}
             </Formik>
             <div className="self-center mt-5    ">
-              <Link
-                href={"/auth/login"}
-                className="rounded-3xl px-2 py-1  text-amber-800 hover:text-amber-600 hover:bg-amber-200 active:bg-amber-300 transition-colors duration-200 "
-              >
-                Login
-              </Link>
+              <LoginLink />
             </div>
           </div>
 

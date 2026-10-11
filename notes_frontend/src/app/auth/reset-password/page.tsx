@@ -3,8 +3,10 @@
 import { Field, Form, Formik } from "formik";
 import { toast } from "sonner";
 import * as Yup from "yup";
-import { PostService } from "../login/loginService";
+import { PostService } from "../../../components/lib/PostService";
 import Link from "next/link";
+import SubmitFormButton from "@/components/ui/components/Form/SubmitFormButton";
+import FieldForm from "@/components/ui/components/Form/FieldForm";
 
 interface IResetPassword {
   email: string;
@@ -46,42 +48,22 @@ export default function ResetPasswordPage() {
             validationSchema={ResetPasswordValidationSchema}
             validateOnMount={true}
           >
-            {({ errors, isValid }) => {
-              const handleFormSubmit = () => {
-                if (!isValid) {
-                  const firstError = Object.values(errors)[0];
-                  if (firstError) {
-                    console.log("errer", errors);
-                    toast.error(firstError as string);
-                  }
-                }
-              };
+            {() => {
+             
               return (
                 <Form className="flex flex-col justify-center">
-                  <fieldset className="mt-5 border border-amber-700 rounded-2xl pl-2 py-0.5 w-100">
-                    <legend className="px-1 text-lg text-amber-700 font-medium">
-                      Email
-                    </legend>
-                    <Field
-                      id="email"
-                      name="email"
-                      type="email"
-                      className="pl-2 -translate-y-1 text-xl w-full bg-transparent outline-none  text-amber-800"
-                      placeholder=""
-                    />
-                  </fieldset>
-                  <button
-                    type="submit"
-                    onClick={handleFormSubmit}
-                    className="border border-amber-900 rounded-3xl py-2 px-5 text-lg mt-5 text-amber-900 active:text-amber-700 hover:bg-amber-300 bg-amber-150 active:bg-amber-400 hover:transition-colors cursor-pointer hover:duration-400 outline-none"
-                  >
-                    Відправити запит
-                  </button>
+                  <FieldForm text="Email" id="email" type="email" />
+                  <SubmitFormButton text="Відправити запит" />
                 </Form>
               );
             }}
           </Formik>
-          <Link className="mt-5 border border-amber-700 rounded-3xl px-3 py-1 text-amber-800 hover:bg-amber-300 active:outline-2 active:outline-amber-600 active:outline-offset-2" href={"/auth/login"}>Login</Link>
+          <Link
+            className="mt-5 border border-amber-700 rounded-3xl px-3 py-1 text-amber-800 hover:bg-amber-300 active:outline-2 active:outline-amber-600 active:outline-offset-2"
+            href={"/auth/login"}
+          >
+            Login
+          </Link>
         </div>
       </div>
     </>
