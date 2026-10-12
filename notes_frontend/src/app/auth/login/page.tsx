@@ -1,7 +1,5 @@
 "use client";
 import { Form, Formik } from "formik";
-import PasswordInputLogin from "./components/PasswordInputLogin";
-import EmailInputLogin from "./components/LoginInputLogin";
 import loginValidationSchema from "./loginValidation.schema";
 import { PostService } from "../../../components/lib/PostService";
 import { toast } from "sonner";
@@ -9,6 +7,8 @@ import { WritingNote } from "@/components/ui/animation/writtingNote";
 import ForgetPassword from "@/components/ui/components/ForgetPasswordLink";
 import RegistrationLink from "@/components/ui/components/RegistrationLink";
 import SubmitFormButton from "@/components/ui/components/Form/SubmitFormButton";
+import FieldForm from "@/components/ui/components/Form/FieldForm";
+import PasswordField from "@/components/ui/components/Form/PasswordField";
 
 const initialValues: ILoginValues = {
   email: "",
@@ -45,10 +45,8 @@ export default function AuthLogin() {
                         <label className="text-5xl mb-12 font-medium text-amber-700">
                           Login
                         </label>
-
-                        <EmailInputLogin />
-                        <PasswordInputLogin />
-
+                        <FieldForm text="email" id="email" type="email" />
+                        <PasswordField text="Password" id={"password"} />
                         <SubmitFormButton text="Login" />
                       </Form>
                     );

@@ -7,6 +7,7 @@ import { PostService } from "../../../components/lib/PostService";
 import Link from "next/link";
 import SubmitFormButton from "@/components/ui/components/Form/SubmitFormButton";
 import FieldForm from "@/components/ui/components/Form/FieldForm";
+import LoginLink from "@/components/ui/components/LoginLink";
 
 interface IResetPassword {
   email: string;
@@ -49,7 +50,6 @@ export default function ResetPasswordPage() {
             validateOnMount={true}
           >
             {() => {
-             
               return (
                 <Form className="flex flex-col justify-center">
                   <FieldForm text="Email" id="email" type="email" />
@@ -58,12 +58,13 @@ export default function ResetPasswordPage() {
               );
             }}
           </Formik>
-          <Link
+          <LoginLink/>
+          {/* <Link
             className="mt-5 border border-amber-700 rounded-3xl px-3 py-1 text-amber-800 hover:bg-amber-300 active:outline-2 active:outline-amber-600 active:outline-offset-2"
             href={"/auth/login"}
           >
             Login
-          </Link>
+          </Link> */}
         </div>
       </div>
     </>
