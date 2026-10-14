@@ -9,6 +9,8 @@ import RegistrationLink from "@/components/ui/components/RegistrationLink";
 import SubmitFormButton from "@/components/ui/components/Form/SubmitFormButton";
 import FieldForm from "@/components/ui/components/Form/FieldForm";
 import PasswordField from "@/components/ui/components/Form/PasswordField";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "@/components/ui/i18next/LanguageSwitcher";
 
 const initialValues: ILoginValues = {
   email: "",
@@ -16,6 +18,7 @@ const initialValues: ILoginValues = {
 };
 
 export default function AuthLogin() {
+  const { t } = useTranslation();
   const loginUser = async (values: ILoginValues) => {
     try {
       const data = await PostService(values, "Auth/v1/login");
@@ -45,9 +48,19 @@ export default function AuthLogin() {
                         <label className="text-5xl mb-12 font-medium text-amber-700">
                           Login
                         </label>
-                        <FieldForm text="email" id="email" type="email" />
-                        <PasswordField text="Password" id={"password"} />
-                        <SubmitFormButton text="Login" />
+
+                        <LanguageSwitcher languageDropdown="top-0 left-full ml-2" />
+
+                        <FieldForm
+                          text={t("text.email")}
+                          id="email"
+                          type="email"
+                        />
+                        <PasswordField
+                          text={t("text.password")}
+                          id={"password"}
+                        />
+                        <SubmitFormButton text={t("text.login")} />
                       </Form>
                     );
                   }}

@@ -1,5 +1,6 @@
 import { useFormikContext } from "formik";
 import { toast } from "sonner";
+import { twMerge } from "tailwind-merge";
 
 interface SubmitFormButtonProps {
   text?: string;
@@ -24,7 +25,10 @@ export default function SubmitFormButton({
     <button
       type="submit"
       onClick={handleFormSubmit}
-      className={`border border-amber-900 rounded-3xl py-2 px-5 text-lg mt-5 text-amber-900 hover:bg-amber-300 hover:transition-colors active:bg-amber-400 ${className}`}
+      className={twMerge(
+        "border border-amber-900 rounded-3xl py-2 px-5 text-lg mt-5 text-amber-900 hover:bg-amber-300 hover:transition-colors active:bg-amber-400",
+        className,
+      )}
     >
       {text}
     </button>

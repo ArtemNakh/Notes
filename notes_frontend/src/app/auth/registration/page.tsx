@@ -1,19 +1,19 @@
 "use client";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import IRegistrationUser from "./IRegistrationUser";
 import Image from "next/image";
 import { toast } from "sonner";
-import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
 import RegistrationSchema from "./Registration.schema";
 import { PostService } from "../../../components/lib/PostService";
-import Link from "next/link";
 import SubmitFormButton from "@/components/ui/components/Form/SubmitFormButton";
 import PasswordField from "@/components/ui/components/Form/PasswordField";
 import FieldForm from "@/components/ui/components/Form/FieldForm";
 import LoginLink from "@/components/ui/components/LoginLink";
+import LanguageSwitcher from "@/components/ui/i18next/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 export default function RegistrationPage() {
+  const { t } = useTranslation();
   const OnSubmit = async (values: IRegistrationUser) => {
     try {
       console.log(`values`, values);
@@ -26,7 +26,6 @@ export default function RegistrationPage() {
     }
   };
 
-  const [showPassword, setShowPassword] = useState(false);
   const initialUser: IRegistrationUser = {
     name: "",
     surname: "",
@@ -41,8 +40,9 @@ export default function RegistrationPage() {
           {/* left */}
           <div className="w-7/12 rounded-3xl flex flex-col items-center justify-center">
             <label className="text-5xl  fint-medium text-amber-700 ">
-              Registration
+              {t("text.registration")}
             </label>
+            <LanguageSwitcher languageDropdown="top-0 left-full ml-2" />
 
             <Formik
               initialValues={initialUser}
@@ -52,20 +52,27 @@ export default function RegistrationPage() {
             >
               {() => {
                 return (
-                  <Form className="mt-15 w-full  flex flex-col items-center ">
-                    <FieldForm text="Name" id="name" type="text" />
-                    <FieldForm text="Surname" id="surname" type="text" />
-                    <FieldForm text="Email" id="email" type="email" />
+                  <Form className="-mt-1 w-full  flex flex-col items-center ">
+                    <FieldForm text={t("text.name")} id="name" type="text" />
+                    <FieldForm
+                      text={t("text.surname")}
+                      id="surname"
+                      type="text"
+                    />
+                    <FieldForm text={t("text.email")} id="email" type="email" />
 
-                    <PasswordField text="Password" id="password" />
-                    <PasswordField text="Repeat Password" id="passwordRepeat" />
+                    <PasswordField text={t("text.password")} id="password" />
+                    <PasswordField
+                      text={t("text.repeat_password")}
+                      id="passwordRepeat"
+                    />
 
-                    <SubmitFormButton text="Registration" />
+                    <SubmitFormButton text={t("text.registration")} />
                   </Form>
                 );
               }}
             </Formik>
-            <div className="self-center mt-5    ">
+            <div className="self-center mt-5 ">
               <LoginLink />
             </div>
           </div>

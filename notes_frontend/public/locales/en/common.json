@@ -1,0 +1,38 @@
+{
+  "email-verification": {
+    "success": "Verification successfully, you can closed this window",
+    "failure": "An error occurred while confirming the email."
+  },
+  "auth": {
+    "schema": {
+      "email": {
+        "must-be": "Email must be",
+        "is-email": "Data must be email"
+      },
+      "password": {
+        "must-be": "Password must be",
+        "min-5-let": "Password must be more 5 letters"
+      },
+      "name": {
+        "must-be": "Name must be",
+        "min-4-let": "Name must be more 4 letters"
+      },
+      "surname": {
+        "must-be": "Surname must be",
+        "min-4-let": "Surname must be more 4 letters"
+      }
+    }
+  },
+  "text": {
+    "email": "Email",
+    "login": "Login",
+    "password": "Password",
+    "name": "Name",
+    "surname": "Surname",
+    "registration": "Registration",
+    "repeat_password": "Repeat password",
+    "reset-password": "Reset password",
+    "send-request": "Send request",
+    "forget-password": "Forget password"
+  }
+}

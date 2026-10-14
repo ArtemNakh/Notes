@@ -1,18 +1,15 @@
-import router from "next/router";
+import LoginLink from "@/components/ui/components/LoginLink";
+import { useTranslation } from "react-i18next";
 
 export default function SuccessVerification() {
+  const { t } = useTranslation();
   return (
     <>
       <div className="flex flex-col items-center space-y-4">
         <p className="text-green-600 font-semibold">
-          ✅ Верифікація успішна, можете зачинити це вікно
+          {t("email-verification.success")}
         </p>
-        <button
-          onClick={() => router.push("/auth/login")}
-          className="px-4 py-2 bg-amber-200 text-amber-700 rounded-3xl hover:bg-amber-400 active:outline-2 active:outline-amber-600 active:outline-offset-4 transition border-amber-700"
-        >
-          Перейти до логіну
-        </button>
+        <LoginLink />
       </div>
     </>
   );

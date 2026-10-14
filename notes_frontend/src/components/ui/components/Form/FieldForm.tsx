@@ -1,17 +1,25 @@
 import { Field } from "formik";
+import { twMerge } from "tailwind-merge";
 
 interface FieldFormProps {
   text: string;
   id: string;
   type: string;
+  className?: string;
 }
 export default function FieldForm({
   text = "",
   id = "",
   type = "",
+  className = "",
 }: FieldFormProps) {
   return (
-    <fieldset className="mt-5 border border-amber-700 rounded-2xl pl-2 py-0.5 w-100">
+    <fieldset
+      className={twMerge(
+        "mt-5 border border-amber-700 rounded-2xl pl-2 py-0.5 w-100",
+        className,
+      )}
+    >
       <legend className="px-1 text-lg text-amber-700 font-medium">
         {text}
       </legend>

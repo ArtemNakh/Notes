@@ -1,23 +1,28 @@
 "use client";
 
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { toast } from "sonner";
 import * as Yup from "yup";
 import { PostService } from "../../../components/lib/PostService";
-import Link from "next/link";
 import SubmitFormButton from "@/components/ui/components/Form/SubmitFormButton";
 import FieldForm from "@/components/ui/components/Form/FieldForm";
 import LoginLink from "@/components/ui/components/LoginLink";
+import LanguageSwitcher from "@/components/ui/i18next/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
+import i18n from "@/components/ui/i18next/i18n.provider";
 
 interface IResetPassword {
   email: string;
 }
 
 const ResetPasswordValidationSchema = Yup.object().shape({
-  email: Yup.string().required("email must be").email("data must be email"),
+  email: Yup.string()
+    .required(() => i18n.t("auth.schema.email.must-be"))
+    .email(() => i18n.t("auth.schema.email.is-email")),
 });
 
 export default function ResetPasswordPage() {
+  const { t } = useTranslation();
   const resetPasswordService = async (values: IResetPassword) => {
     try {
       console.log(`values`, values);
@@ -40,8 +45,11 @@ export default function ResetPasswordPage() {
   return (
     <>
       <div className="h-screen w-full bg-amber-100 flex items-center justify-center">
-        <div className="bg-amber-200 rounded-3xl w-xl h-70 flex flex-col items-center ">
-          <h1 className="text-2xl mt-5 text-amber-800">Відновлення паролю</h1>
+        <div className="bg-amber-200 rounded-3xl w-xl h-80 flex flex-col items-center ">
+          <h1 className="text-2xl mt-5 text-amber-800">
+            {t("text.reset-password")}
+          </h1>
+          <LanguageSwitcher languageDropdown="top-0 left-full ml-2" />
 
           <Formik
             initialValues={initialResetPassword}
@@ -52,19 +60,21 @@ export default function ResetPasswordPage() {
             {() => {
               return (
                 <Form className="flex flex-col justify-center">
-                  <FieldForm text="Email" id="email" type="email" />
-                  <SubmitFormButton text="Відправити запит" />
+                  <FieldForm
+                    text={t("text.email")}
+                    id="email"
+                    type="email"
+                    className="-mt-0.5"
+                  />
+                  <SubmitFormButton
+                    text={t("text.send-request")}
+                    className=""
+                  />
                 </Form>
               );
             }}
           </Formik>
-          <LoginLink/>
-          {/* <Link
-            className="mt-5 border border-amber-700 rounded-3xl px-3 py-1 text-amber-800 hover:bg-amber-300 active:outline-2 active:outline-amber-600 active:outline-offset-2"
-            href={"/auth/login"}
-          >
-            Login
-          </Link> */}
+          <LoginLink className="mt-3" />
         </div>
       </div>
     </>
