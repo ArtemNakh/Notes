@@ -30,6 +30,18 @@ export class UsersService {
     return client;
   }
 
+    /**
+   * Find user by id.
+   * @param id - user`s id
+   * @returns user object or null
+   */
+  public async findById(id: number): Promise<IUser | null> {
+    const client = await this.usersRepository.findOne({
+      where: { id },
+    });
+    return client;
+  }
+
   /**
    * Створити нового користувача.
    * Пароль хешується за допомогою argon2.

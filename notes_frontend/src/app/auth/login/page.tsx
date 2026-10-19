@@ -1,7 +1,6 @@
 "use client";
 import { Form, Formik } from "formik";
 import loginValidationSchema from "./loginValidation.schema";
-import { PostService } from "../../../components/lib/PostService";
 import { toast } from "sonner";
 import { WritingNote } from "@/components/ui/animation/writtingNote";
 import ForgetPassword from "@/components/ui/components/ForgetPasswordLink";
@@ -11,6 +10,8 @@ import FieldForm from "@/components/ui/components/Form/FieldForm";
 import PasswordField from "@/components/ui/components/Form/PasswordField";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "@/components/ui/i18next/LanguageSwitcher";
+import { useAppDispatch } from "@/components/lib/redux/hooks";
+import { login, loginUser } from "@/components/lib/redux/Auth/auth.slice";
 
 const initialValues: ILoginValues = {
   email: "",
@@ -19,11 +20,17 @@ const initialValues: ILoginValues = {
 
 export default function AuthLogin() {
   const { t } = useTranslation();
-  const loginUser = async (values: ILoginValues) => {
+  const dispatch = useAppDispatch();
+  const loginSubmit = async (values: ILoginValues) => {
     try {
-      const data = await PostService(values, "Auth/v1/login");
+      const data = await dispatch(loginUser(values)).unwrap();
+      console.log("Успішний вхід:", data.email);
+      // const data = await PostService(values, "Auth/v1/login");
       console.log("data", data);
-      toast.success("Успішний вхід!");
+      // dispatch(login());
+      if (data.statusCode == 200) toast.success("Успішний вхід!");
+      else
+        toast.error(data.message)
     } catch (err: any) {
       toast.error(err?.response?.data?.message || "Невірний логін або пароль!");
     }
@@ -39,7 +46,7 @@ export default function AuthLogin() {
                 <Formik
                   initialValues={initialValues}
                   validationSchema={loginValidationSchema}
-                  onSubmit={loginUser}
+                  onSubmit={loginSubmit}
                   validateOnMount={true}
                 >
                   {() => {

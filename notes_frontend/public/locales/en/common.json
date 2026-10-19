@@ -11,7 +11,7 @@
       },
       "password": {
         "must-be": "Password must be",
-        "min-5-let": "Password must be more 5 letters"
+        "min-6-let": "Password must be more 6 letters"
       },
       "name": {
         "must-be": "Name must be",
@@ -20,6 +20,14 @@
       "surname": {
         "must-be": "Surname must be",
         "min-4-let": "Surname must be more 4 letters"
+      }
+    }
+  },
+  "note": {
+    "schema": {
+      "title": {
+        "must-be": "Title must be",
+        "min-4-let": "Title must be more 4 letters"
       }
     }
   },
@@ -33,6 +41,8 @@
     "repeat_password": "Repeat password",
     "reset-password": "Reset password",
     "send-request": "Send request",
-    "forget-password": "Forget password"
+    "forget-password": "Forget password",
+    "create":"Create",
+    "enter-title":"Enter title"
   }
 }

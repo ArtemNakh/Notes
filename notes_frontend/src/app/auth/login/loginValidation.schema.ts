@@ -8,6 +8,6 @@ const loginValidationSchema = Yup.object().shape({
 
   password: Yup.string()
     .required(() => i18n.t("auth.schema.password.must-be"))
-    .min(5, () => i18n.t("auth.schema.password.min-5-let")),
+    .min(6, () => i18n.t("auth.schema.password.min-6-let")),
 });
 export default loginValidationSchema;

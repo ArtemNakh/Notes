@@ -96,6 +96,21 @@ export class AuthService {
     });
   }
 
+  public async getSessionUser(req: Request) {
+    const userId = req.session?.userId;
+    
+    if (!userId) {
+      throw new UnauthorizedException('Session is missing or expired.');
+    }
+
+    const user = await this.userService.findById(userId); 
+    if (!user) {
+      throw new NotFoundException('User belonging to this session no longer exists.');
+    }
+
+    return user;
+  }
+  
   /**
    * Збереження сесії користувача.
    * @param req - HTTP Request

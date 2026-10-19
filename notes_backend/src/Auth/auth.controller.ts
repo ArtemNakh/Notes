@@ -1,11 +1,11 @@
-import { Body, Controller, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service.js';
 import { RegistrationUserDto } from './dto/RegistrationUser.dto.js';
 import { RegistrationUserResponseDto } from './dto/response/RegistrationClient.response.dto.js';
 import { LoginUserDto } from './dto/loginUser.dto.js';
 import { LoginUserResponseDto } from './dto/response/LoginClient.response.dto.js';
-import type { Request,Response } from 'express';
+import type { Request, Response } from 'express';
 import { plainToInstance } from 'class-transformer';
 
 @ApiTags('Auth')
@@ -31,11 +31,17 @@ export class AuthController {
     });
   }
 
-    @Post('v1/logout')
-     public async logout(
-      @Req() req: Request,
-      @Res({ passthrough: true }) res: Response,
-    ) {
-      return this.authService.logoutUser(req, res);
-    }
+  @Post('v1/logout')
+  public async logout(
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.authService.logoutUser(req, res);
+  }
+
+  @Get(`v1/session`)
+  async checkSession(@Req() req: Request) {
+    const user = await this.authService.getSessionUser(req);
+    return { message: 'Session is active' };
+  }
 }
