@@ -32,7 +32,13 @@ export const noteSlice = createSlice({
       })
       .addCase(GetNotes.fulfilled, (state, action) => {
         if (Array.isArray(action.payload)) {
-          state.note = state.note.concat(action.payload);
+          // Об'єднуємо старі та нові нотатки, залишаючи тільки унікальні за id
+          const existingIds = new Set(state.note.map((item) => item.id));
+          const uniqueNewNotes = action.payload.filter(
+            (item) => !existingIds.has(item.id),
+          );
+
+          state.note = [...state.note, ...uniqueNewNotes];
         }
       })
       .addCase(DeleteNote.fulfilled, (state, action) => {

@@ -2,6 +2,7 @@
 import { useAppDispatch } from "@/components/lib/redux/hooks";
 import { DeleteNote } from "@/components/lib/redux/Note/actions/DeleteNote.action";
 import INote from "@/components/lib/redux/Note/note.interface";
+import {  useRouter } from "next/navigation";
 
 interface NotePanelProps {
   note: INote;
@@ -9,11 +10,13 @@ interface NotePanelProps {
 
 export default function NotePanel({ note }: NotePanelProps) {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   return (
     <>
       <div
         className="w-76 h-33 bg-amber border border-amber-500 rounded-2xl bg-amber-150 text-amber-800"
         onClick={() => {
+         router.push(`/${note.id}`);
           console.log("redirect on dinamy page to edit note ");
         }}
       >
