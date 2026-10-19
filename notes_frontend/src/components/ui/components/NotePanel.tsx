@@ -1,4 +1,6 @@
 "use client";
+import { useAppDispatch } from "@/components/lib/redux/hooks";
+import { DeleteNote } from "@/components/lib/redux/Note/actions/DeleteNote.action";
 import INote from "@/components/lib/redux/Note/note.interface";
 
 interface NotePanelProps {
@@ -6,6 +8,7 @@ interface NotePanelProps {
 }
 
 export default function NotePanel({ note }: NotePanelProps) {
+  const dispatch = useAppDispatch();
   return (
     <>
       <div
@@ -23,8 +26,9 @@ export default function NotePanel({ note }: NotePanelProps) {
         <div className="mt-1 flex items-center justify-between w-full h-10 ">
           <div></div>
           <svg
-            onClick={(e) => {
+            onClick={async (e) => {
               e.stopPropagation();
+              await dispatch(DeleteNote({ id: note.id }));
               console.log(`deleted current ${note.id} note`);
             }}
             className=" w-7 h-7 mr-3 text-amber-700"

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import INote from "./note.interface";
 import { CreateNote } from "./actions/CreateNote.action";
 import { GetNotes } from "./actions/GetNotes.action";
+import { DeleteNote } from "./actions/DeleteNote.action";
 
 interface NoteState {
   note: INote[];
@@ -33,6 +34,10 @@ export const noteSlice = createSlice({
         if (Array.isArray(action.payload)) {
           state.note = state.note.concat(action.payload);
         }
+      })
+      .addCase(DeleteNote.fulfilled, (state, action) => {
+        const deletedId = action.meta.arg.id;
+        state.note = state.note.filter((item) => item.id !== deletedId);
       });
   },
 });

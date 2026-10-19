@@ -54,10 +54,13 @@ export class NotesController {
   async removeNote(
     @Param() params: RemoveNoteDto,
     @GetCurrentUser() userId: number,
-  ): Promise<void> {
+  ): Promise<{ message: string }> {
     const { noteId } = params;
 
     await this.notesService.deleteNote(noteId, userId);
+    return {
+      message: 'Note successfully deleted',
+    };
   }
 
   @Patch('v1/update/:noteId')
@@ -84,9 +87,12 @@ export class NotesController {
   @Get('v1/get')
   @UseGuards(SessionAuthGuard)
   @ApiGetNotes()
-  async getNotesByUser(@GetCurrentUser() userId: number , @Query() query:GetNotesQueryDto) {
-    const{take,skip}=query
-    const notes = await this.notesService.GetNotesByUserId(userId,take,skip);
+  async getNotesByUser(
+    @GetCurrentUser() userId: number,
+    @Query() query: GetNotesQueryDto,
+  ) {
+    const { take, skip } = query;
+    const notes = await this.notesService.GetNotesByUserId(userId, take, skip);
     return notes;
   }
 }

@@ -44,15 +44,17 @@ export default async function BaseFetch({
               : "Request error",
         );
       }
+      console.error("errorInner", errorData);
       throw new Error(errorData?.message);
     }
+
+    notification?.success && toast.success(notification.success);
     return await response.json();
   } catch (error: any) {
-
     if (typeof window !== "undefined") {
       toast.error(notification?.error ? notification.error : error.message);
     }
-    
+    console.error("error", error);
     throw new Error(error.message || "Помилка мережі");
   }
 }
