@@ -9,7 +9,7 @@ export const GetNotes = createAsyncThunk(
   "note/get-all",
   async ({ take, skip }: IGetNotes) => {
     return await BaseFetch({
-      endPoint: `/note/v1/get?take=${take}&skip=${skip}`,
+      endPoint: `/notes/v1/get?take=${take}&skip=${skip}`,
       method: HttpMethod.GET,
       notification: {
         success: "Notes received",

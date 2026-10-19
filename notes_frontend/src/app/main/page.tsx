@@ -33,7 +33,7 @@ export default function MainPage() {
       const newNotes = await dispatch(
         GetNotes({ take, skip: nextSkip }),
       ).unwrap();
-
+console.log("new req")
       // Якщо бекенд повернув порожній масив, значить нотатки закінчилися
       if (!newNotes || newNotes.length === 0) {
         setHasMore(false);

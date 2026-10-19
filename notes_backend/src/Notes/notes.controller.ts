@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import INote from './note.interface.js';
@@ -20,6 +21,7 @@ import { UpdateNoteParamDto } from './dto/Param/UpdateNote.param.dto.js';
 import { UpdateNoteBodyDto } from './dto/Body/UpdateNote.body.dto.js';
 import { ApiUpdateNote } from './dto/ApiSwager/UpdateNote.api.dto.js';
 import { ApiGetNotes } from './dto/ApiSwager/GetNotes.api.js';
+import { GetNotesQueryDto } from './dto/Query/GetNotes.query.js';
 
 @Controller('notes')
 export class NotesController {
@@ -79,11 +81,12 @@ export class NotesController {
     return newNote;
   }
 
-  @Get('v1/get-all-by-user')
+  @Get('v1/get')
   @UseGuards(SessionAuthGuard)
   @ApiGetNotes()
-  async getNotesByUser(@GetCurrentUser() userId: number) {
-    const notes = await this.notesService.GetNotesByUserId(userId);
+  async getNotesByUser(@GetCurrentUser() userId: number , @Query() query:GetNotesQueryDto) {
+    const{take,skip}=query
+    const notes = await this.notesService.GetNotesByUserId(userId,take,skip);
     return notes;
   }
 }
