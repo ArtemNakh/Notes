@@ -20,7 +20,7 @@ export default function MainPage() {
   useEffect(() => {
     dispatch(GetNotes({ take, skip: 0 }));
   }, [dispatch]);
-  
+
   // Функція для підвантаження наступної порції
   const loadMoreNotes = async () => {
     if (isLoading || !hasMore) return;
@@ -33,7 +33,7 @@ export default function MainPage() {
       const newNotes = await dispatch(
         GetNotes({ take, skip: nextSkip }),
       ).unwrap();
-console.log("new req")
+      console.log("new req");
       // Якщо бекенд повернув порожній масив, значить нотатки закінчилися
       if (!newNotes || newNotes.length === 0) {
         setHasMore(false);
@@ -41,7 +41,8 @@ console.log("new req")
         setSkip(nextSkip);
       }
     } catch (error) {
-      console.error("Помилка завантаження нотаток:", error);setHasMore(false);
+      console.error("Помилка завантаження нотаток:", error);
+      setHasMore(false);
     } finally {
       setIsLoading(false);
     }
@@ -72,7 +73,7 @@ console.log("new req")
   return (
     <div className="ml-2 mr-2  w-auto  min-h-screen ">
       <div
-        className={`pt-3 w-full h-full flex flex-wrap gap-2 items-center justify-center`}
+        className={`pt-3  w-full h-full flex flex-wrap gap-2 md:gap-y-4 items-center justify-center`}
       >
         {notes &&
           notes.map((note, index) => {

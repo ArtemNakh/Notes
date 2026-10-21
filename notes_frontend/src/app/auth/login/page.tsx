@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "@/components/ui/i18next/LanguageSwitcher";
 import { useAppDispatch } from "@/components/lib/redux/hooks";
 import { login, loginUser } from "@/components/lib/redux/Auth/auth.slice";
+import { redirect, useRouter } from "next/navigation";
 
 const initialValues: ILoginValues = {
   email: "",
@@ -19,19 +20,22 @@ const initialValues: ILoginValues = {
 };
 
 export default function AuthLogin() {
+  const router = useRouter();
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const loginSubmit = async (values: ILoginValues) => {
     try {
       const data = await dispatch(loginUser(values)).unwrap();
-      console.log("Успішний вхід:", data.email);
+      console.log("Успішний вхід:");
       // const data = await PostService(values, "Auth/v1/login");
       console.log("data", data);
       // dispatch(login());
-      if (data.statusCode == 200) toast.success("Успішний вхід!");
-      else
-        toast.error(data.message)
+      if (data) {
+        toast.success("Успішний вхід!");
+        router.push("/main")
+      }
     } catch (err: any) {
+      console.log("err", err);
       toast.error(err?.response?.data?.message || "Невірний логін або пароль!");
     }
   };

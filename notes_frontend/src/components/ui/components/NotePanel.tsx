@@ -2,7 +2,7 @@
 import { useAppDispatch } from "@/components/lib/redux/hooks";
 import { DeleteNote } from "@/components/lib/redux/Note/actions/DeleteNote.action";
 import INote from "@/components/lib/redux/Note/note.interface";
-import {  useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface NotePanelProps {
   note: INote;
@@ -14,19 +14,26 @@ export default function NotePanel({ note }: NotePanelProps) {
   return (
     <>
       <div
-        className="w-76 h-33 bg-amber border border-amber-500 rounded-2xl bg-amber-150 text-amber-800"
+        className={`w-76 max-h-33 min-h-22 md:min-h-53 md:w-80 xl:w-96
+         bg-amber border border-amber-500 rounded-2xl bg-amber-150 text-amber-800 overflow-hidden `}
         onClick={() => {
-         router.push(`/${note.id}`);
+          router.push(`/${note.id}`);
           console.log("redirect on dinamy page to edit note ");
         }}
       >
-        <label className=" ml-2 mt-2 text-2xl border-b border-amber-400 ">
+        <label
+          className={`block mx-2 mt-2 pb-1 
+            md:mx-5 md:mt-3 md:pb-3
+            text-2xl md:text-5xl border-b border-amber-600 truncate `}
+        >
           {note.title}
         </label>
-        <p className="ml-2 mt-2 text-base line-clamp-2 text-amber-700">
+        <p
+          className={`mt-2 md:mt-4 mx-3  text-base md:text-2xl line-clamp-2 text-amber-700`}
+        >
           {note.content}
         </p>
-        <div className="mt-1 flex items-center justify-between w-full h-10 ">
+        <div className="mt-1 md:mt-3 flex items-center justify-between w-full h-10 ">
           <div></div>
           <svg
             onClick={async (e) => {
@@ -34,7 +41,7 @@ export default function NotePanel({ note }: NotePanelProps) {
               await dispatch(DeleteNote({ id: note.id }));
               console.log(`deleted current ${note.id} note`);
             }}
-            className=" w-7 h-7 mr-3 text-amber-700"
+            className={` w-7 h-7 md:w-10 md:h-10 mr-3 text-amber-700`}
             width="800px"
             height="800px"
             viewBox="0 0 24 24"
