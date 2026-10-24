@@ -4,9 +4,18 @@ import { useState } from "react";
 import LanguageSwitcher from "../i18next/LanguageSwitcher";
 import CreateNewNoteForm from "./CreateNewNote";
 import RotationPlus from "../animation/RotationPlus";
+import { usePathname, useRouter } from "next/navigation";
+import HomeIcon from "./HomeIcon";
+import Link from "next/link";
 
 export default function Header() {
+  const router = useRouter();
+  const handleGoHome = () => {
+    router.push("/main");
+  };
   const [isCreateNote, setIsCreateNote] = useState(false);
+  const pathname = usePathname();
+  const isMainPage = pathname === "/main";
 
   return (
     <>
@@ -19,7 +28,13 @@ export default function Header() {
             languageButton="px-2 py-1 mt-0 text-amber-700 border-amber-700"
             languageDropdown="z-1 fixed bg-amber-100"
           />
-          <RotationPlus onToggle={() => setIsCreateNote(!isCreateNote)} />
+          {isMainPage ? (
+            <RotationPlus onToggle={() => setIsCreateNote(!isCreateNote)} />
+          ) : (
+            <Link href={"/main"}>
+              <HomeIcon />
+            </Link>
+          )}
         </div>
       </div>
 
