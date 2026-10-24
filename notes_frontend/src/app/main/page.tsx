@@ -6,7 +6,9 @@ import { useEffect, useRef, useState } from "react";
 
 export default function MainPage() {
   const dispatch = useAppDispatch();
-  const notes = useAppSelector((state) => state.noteReducer.note);
+  const notes = Object.values(
+    useAppSelector((state) => state.noteReducer.note),
+  );
 
   const [skip, setSkip] = useState(0);
   const take = 10;
@@ -33,7 +35,6 @@ export default function MainPage() {
       const newNotes = await dispatch(
         GetNotes({ take, skip: nextSkip }),
       ).unwrap();
-      console.log("new req");
       // Якщо бекенд повернув порожній масив, значить нотатки закінчилися
       if (!newNotes || newNotes.length === 0) {
         setHasMore(false);

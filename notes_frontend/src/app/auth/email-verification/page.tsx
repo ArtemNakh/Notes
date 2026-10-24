@@ -10,13 +10,8 @@ export default function MailVerificationPage() {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
-  const [status, setStatus] = useState<"loading" | "success" | "error">(
-    "loading",
-  );
-
   useEffect(() => {
     if (!token) {
-      setStatus("error");
       return;
     }
 

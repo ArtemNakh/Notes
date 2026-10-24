@@ -1,14 +1,21 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createEntityAdapter,
+  createSlice,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import INote from "./note.interface";
 import { CreateNote } from "./actions/CreateNote.action";
 import { GetNotes } from "./actions/GetNotes.action";
 import { DeleteNote } from "./actions/DeleteNote.action";
+import { GetNoteById } from "./actions/GetNoteById.action";
+import { UpdateNote } from "./actions/UpdateNote.action";
 
 interface NoteState {
-  note: INote[];
+  note: Record<number, INote>;
 }
+
 const initialState: NoteState = {
-  note: [],
+  note: {},
 };
 
 export const noteSlice = createSlice({
@@ -16,34 +23,51 @@ export const noteSlice = createSlice({
   initialState,
   reducers: {
     getAll: (state, action: PayloadAction<INote[]>) => {
-      state.note = action.payload;
+      state.note = {};
+      if (Array.isArray(action.payload)) {
+        action.payload.forEach((item) => {
+          if (item && item.id) {
+            state.note[item.id] = item;
+          }
+        });
+      }
     },
   },
   extraReducers: (builder) => {
     builder;
     builder
       .addCase(CreateNote.fulfilled, (state, action: PayloadAction<INote>) => {
-        // Якщо стан вже містить масив, додаємо туди нову нотатку
-        if (state.note) {
-          state.note.push(action.payload); // або [action.payload, ...state.note], якщо на початок
-        } else {
-          state.note = [action.payload]; // Якщо масиву ще не було, створюємо його з однією нотаткою
+        const newNote = action.payload;
+        if (newNote && newNote.id) {
+          state.note[newNote.id] = newNote;
         }
       })
       .addCase(GetNotes.fulfilled, (state, action) => {
         if (Array.isArray(action.payload)) {
-          // Об'єднуємо старі та нові нотатки, залишаючи тільки унікальні за id
-          const existingIds = new Set(state.note.map((item) => item.id));
-          const uniqueNewNotes = action.payload.filter(
-            (item) => !existingIds.has(item.id),
-          );
-
-          state.note = [...state.note, ...uniqueNewNotes];
+          action.payload.forEach((fetchedNote) => {
+            if (fetchedNote && fetchedNote.id) {
+              state.note[fetchedNote.id] = fetchedNote;
+            }
+          });
+        }
+      })
+      .addCase(GetNoteById.fulfilled, (state, action: PayloadAction<INote>) => {
+        const fetchedNote = action.payload;
+        if (fetchedNote && fetchedNote.id) {
+          state.note[fetchedNote.id] = fetchedNote;
+        }
+      })
+      .addCase(UpdateNote.fulfilled, (state, action: PayloadAction<INote>) => {
+        const updatedNote = action.payload;
+        if (updatedNote && updatedNote.id) {
+          state.note[updatedNote.id] = updatedNote;
         }
       })
       .addCase(DeleteNote.fulfilled, (state, action) => {
-        const deletedId = action.meta.arg.id;
-        state.note = state.note.filter((item) => item.id !== deletedId);
+        const deletedId = action.meta.arg?.id ?? action.payload;
+        if (deletedId !== undefined && deletedId !== null) {
+          delete state.note[deletedId];
+        }
       });
   },
 });

@@ -22,6 +22,8 @@ import { UpdateNoteBodyDto } from './dto/Body/UpdateNote.body.dto.js';
 import { ApiUpdateNote } from './dto/ApiSwager/UpdateNote.api.dto.js';
 import { ApiGetNotes } from './dto/ApiSwager/GetNotes.api.js';
 import { GetNotesQueryDto } from './dto/Query/GetNotes.query.js';
+import { GetNoteByIdParamDto } from './dto/Param/GetNoteById.param.js';
+import { ApiGetNoteById } from './dto/ApiSwager/GetNoteById.api.js';
 
 @Controller('notes')
 export class NotesController {
@@ -93,6 +95,15 @@ export class NotesController {
   ) {
     const { take, skip } = query;
     const notes = await this.notesService.GetNotesByUserId(userId, take, skip);
+    return notes;
+  }
+
+  @Get('v1/get/:noteId')
+  @UseGuards(SessionAuthGuard)
+  @ApiGetNoteById()
+  async getNoteById(@Param() param: GetNoteByIdParamDto) {
+    const { noteId } = param;
+    const notes = await this.notesService.GetNotesById(noteId);
     return notes;
   }
 }

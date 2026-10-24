@@ -11,8 +11,9 @@ import PasswordField from "@/components/ui/components/Form/PasswordField";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "@/components/ui/i18next/LanguageSwitcher";
 import { useAppDispatch } from "@/components/lib/redux/hooks";
-import { login, loginUser } from "@/components/lib/redux/Auth/auth.slice";
-import { redirect, useRouter } from "next/navigation";
+import { loginUser } from "@/components/lib/redux/Auth/auth.slice";
+import { useRouter } from "next/navigation";
+import { ILoginValues } from "./ILoginValues.interface";
 
 const initialValues: ILoginValues = {
   email: "",
