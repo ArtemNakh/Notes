@@ -28,9 +28,7 @@ export default function AuthLogin() {
     try {
       const data = await dispatch(loginUser(values)).unwrap();
       console.log("Успішний вхід:");
-      // const data = await PostService(values, "Auth/v1/login");
       console.log("data", data);
-      // dispatch(login());
       if (data) {
         toast.success("Успішний вхід!");
         router.push("/main")

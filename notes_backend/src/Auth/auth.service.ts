@@ -61,7 +61,10 @@ export class AuthService {
     if (!user || !user.password) {
       throw new NotFoundException('Client not found. Please check your input.');
     }
-    const isValidPassword = await HashService.comparePassword(user.password, dto.password);
+    const isValidPassword = await HashService.comparePassword(
+      user.password,
+      dto.password,
+    );
     if (!isValidPassword) {
       throw new UnauthorizedException('Incorrect password.');
     }
@@ -98,19 +101,21 @@ export class AuthService {
 
   public async getSessionUser(req: Request) {
     const userId = req.session?.userId;
-    
+
     if (!userId) {
       throw new UnauthorizedException('Session is missing or expired.');
     }
 
-    const user = await this.userService.findById(userId); 
+    const user = await this.userService.findById(userId);
     if (!user) {
-      throw new NotFoundException('User belonging to this session no longer exists.');
+      throw new NotFoundException(
+        'User belonging to this session no longer exists.',
+      );
     }
 
     return user;
   }
-  
+
   /**
    * Збереження сесії користувача.
    * @param req - HTTP Request
@@ -121,7 +126,7 @@ export class AuthService {
   public async saveUserSession(
     req: Request,
     user: IUser,
-  ): Promise<{ authToken: string }> {
+  ): Promise<{ authToken: string; user?: IUser }> {
     return new Promise((resolve, reject) => {
       req.session.userId = user.id;
       req.session.save((err) => {
@@ -133,7 +138,7 @@ export class AuthService {
           );
         }
         const authToken = req.sessionID;
-        resolve({ authToken });
+        resolve({ authToken, user });
       });
     });
   }

@@ -8,8 +8,8 @@ export default async function IsAuthorized(): Promise<void> {
     const cookieStore = await headers();
     const cookieHeader = cookieStore.get("cookie") || "";
     // Використовуємо вашу функцію BaseFetch
-    await BaseFetch({
-      endPoint: "/Auth/v1/session", // ваш ендпоінт перевірки сесії
+    const response = await BaseFetch({
+      endPoint: "/auth/v1/session", // ваш ендпоінт перевірки сесії
       method: HttpMethod.GET,
       headers: {
         Cookie: cookieHeader, // Передаємо куки на бекенд

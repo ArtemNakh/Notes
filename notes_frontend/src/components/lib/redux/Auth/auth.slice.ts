@@ -1,13 +1,15 @@
 // store/features/auth/authSlice.ts
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import IUser from "../User/user.interface";
+import { UpdateUser } from "./actions/UpdateUser.action";
+import { FetchSession } from "./actions/FetchSession.action";
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (credentials: { email: string; password: string }, thunkAPI) => {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-      const response = await fetch(`${apiUrl}/Auth/v1/login`, {
+      const response = await fetch(`${apiUrl}/auth/v1/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),
@@ -45,12 +47,25 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder;
-    builder.addCase(
-      loginUser.fulfilled,
-      (state, action: PayloadAction<IUser>) => {
-        state.user = action.payload; // Зберігаємо користувача в Redux після успішного запиту
-      },
-    );
+    builder
+      .addCase(
+        loginUser.fulfilled,
+        (state, action: PayloadAction<Record<string, IUser>>) => {
+          state.user = action.payload.user; // Зберігаємо користувача в Redux після успішного запиту
+        },
+      )
+      .addCase(UpdateUser.fulfilled, (state, action: PayloadAction<IUser>) => {
+        state.user = action.payload;
+      })
+      .addCase(
+        FetchSession.fulfilled,
+        (state, action: PayloadAction<IUser>) => {
+          state.user = action.payload; // Зберігаємо в Redux
+        },
+      )
+      .addCase(FetchSession.rejected, (state) => {
+        state.user = null; // Якщо сесія впала — очищаємо юзера
+      });
   },
 });
 

@@ -30,7 +30,7 @@ export class UsersService {
     return client;
   }
 
-    /**
+  /**
    * Find user by id.
    * @param id - user`s id
    * @returns user object or null
@@ -79,7 +79,14 @@ export class UsersService {
       user.password = await HashService.hash(dto.password);
       delete dto.password;
     }
-    Object.assign(user, dto);
+    const filteredDto = Object.fromEntries(
+      Object.entries(dto).filter(([_, value]) => {
+        if (value === undefined || value === null) return false;
+        if (typeof value === 'string' && value.trim() === '') return false;
+        return true;
+      }),
+    );
+    Object.assign(user, filteredDto);
     return await this.usersRepository.save(user);
   }
 }
