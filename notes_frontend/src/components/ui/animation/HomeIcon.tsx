@@ -1,12 +1,18 @@
+import { twMerge } from "tailwind-merge";
+
 interface HomeIconProps {
-  onClick?: () => void; // Функція, яку ми очікуємо від батьківського компонента
+  onClick?: () => void;
+  className?: string;
 }
 
-export default function HomeIcon({onClick}:HomeIconProps) {
+export default function HomeIcon({ onClick, className }: HomeIconProps) {
   return (
     <>
       <svg
-        className={`w-11 h-11 text-amber-600 hover:transform hover:scale-110 duration-300 active:text-amber-700 active:duration-100`}
+        className={twMerge(
+          `w-11 h-11 text-amber-600 hover:transform hover:scale-110 duration-300 active:text-amber-700 active:duration-100`,
+          className,
+        )}
         viewBox="0 0 25 25"
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"

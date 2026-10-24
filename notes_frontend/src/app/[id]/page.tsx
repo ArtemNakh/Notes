@@ -25,8 +25,8 @@ export default function NotePage() {
     if (noteId) {
       fetchNote();
     }
-  }, [dispatch, noteId]); 
-  
+  }, [dispatch, noteId]);
+
   useEffect(() => {
     if (note && !title && !content) {
       setTitle(note.title || "");
@@ -56,16 +56,23 @@ export default function NotePage() {
 
   return (
     <>
-      <div className="flex mx-3 mt-2">
+      <div
+        className={`flex mx-3 lg:mx-10 mt-2 lg:mt-4
+       w-16 lg:w-15 2xl:w-25
+        bg-amber-900 h-10 2xl:h-15 rounded-2xl`}
+      >
         <button
           onClick={handleSave}
-          className="px-4 py-1 bg-amber-700 text-white rounded hover:bg-amber-800 transition"
+          className="px-4  py-1 2xl:w-25  bg-amber-700 text-white lg:text-xl rounded-2xl hover:bg-amber-800 transition "
         >
           save
         </button>
       </div>
 
-      <div className="mx-3 mt-2 text-4xl text-amber-800 border-amber-600 border-b-2 flex justify-between items-center">
+      <div
+        className={`mx-3 lg:mx-10 mt-2 lg:mt-4 text-4xl 2xl:text-6xl
+           text-amber-800 border-amber-600 border-b-2 flex justify-between items-center`}
+      >
         <h1
           contentEditable
           suppressContentEditableWarning={true}
@@ -75,12 +82,12 @@ export default function NotePage() {
         />
       </div>
 
-      <div className="mx-3 mt-3 text-lg text-amber-900">
+      <div className="mx-3 lg:mx-10 mt-3 lg:mt-5 text-lg 2xl:text-3xl text-amber-900 ">
         <p
           contentEditable
           suppressContentEditableWarning={true}
           onInput={(e) => setContent(e.currentTarget.textContent || "")}
-          className="outline-none w-full bg-transparent whitespace-pre-wrap cursor-text min-h-50"
+          className="outline-none w-full bg-transparent whitespace-pre-wrap cursor-text min-h-50 2xl:leading-11"
           dangerouslySetInnerHTML={{ __html: note.content || "" }}
         />
       </div>

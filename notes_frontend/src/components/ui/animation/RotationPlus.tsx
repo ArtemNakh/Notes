@@ -1,13 +1,22 @@
+import { twMerge } from "tailwind-merge";
+
 interface RotationPlusProps {
-  onToggle?: () => void; // Функція, яку ми очікуємо від батьківського компонента
+  onToggle?: () => void;
+  className?: string;
 }
 
-export default function RotationPlus({ onToggle }: RotationPlusProps) {
+export default function RotationPlus({
+  onToggle,
+  className,
+}: RotationPlusProps) {
   return (
     <>
       <svg
-        className={`w-12 h-12 text-amber-500 transition-transform duration-500 hover:rotate-90 cursor-pointer
-              active:text-amber-600`}
+        className={twMerge(
+          `w-12 h-12 text-amber-500 transition-transform duration-500 hover:rotate-90 cursor-pointer
+              active:text-amber-600`,
+          className,
+        )}
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
         fill="currentColor"
