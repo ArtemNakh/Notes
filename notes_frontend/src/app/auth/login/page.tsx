@@ -45,7 +45,8 @@ export default function AuthLogin() {
         <div className=" border-2 border-amber-500 rounded-3xl">
           <div className="w-[80vw] h-[80vh] bg-amber-150 rounded-3xl">
             <div className="flex h-full">
-              <div className="w-1/2 h-full  flex  flex-col justify-center">
+
+              <div className="w-full lg:w-1/2 h-full  flex  flex-col justify-center">
                 <Formik
                   initialValues={initialValues}
                   validationSchema={loginValidationSchema}
@@ -65,10 +66,12 @@ export default function AuthLogin() {
                           text={t("text.email")}
                           id="email"
                           type="email"
+                          className="w-auto"
                         />
                         <PasswordField
                           text={t("text.password")}
                           id={"password"}
+                          className="w-auto"
                         />
                         <SubmitFormButton text={t("text.login")} />
                       </Form>
@@ -82,7 +85,7 @@ export default function AuthLogin() {
               </div>
 
               {/* svg / right part*/}
-              <div className="bg-amber-500 w-1/2 rounded-2xl">
+              <div className="hidden lg:block bg-amber-500 w-1/2 rounded-2xl ">
                 <div className="relative w-full h-full">
                   <WritingNote />
                 </div>

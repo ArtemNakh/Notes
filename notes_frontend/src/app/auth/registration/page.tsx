@@ -38,7 +38,7 @@ export default function RegistrationPage() {
       <div className="w-full h-screen flex justify-center items-center ">
         <div className="border border-amber-500 bg-amber-150 w-[75vw] h-[80vh] rounded-3xl flex">
           {/* left */}
-          <div className="w-7/12 rounded-3xl flex flex-col items-center justify-center">
+          <div className="w-full lg:w-7/12 rounded-3xl flex flex-col items-center justify-center">
             <label className="text-5xl  fint-medium text-amber-700 ">
               {t("text.registration")}
             </label>
@@ -53,18 +53,30 @@ export default function RegistrationPage() {
               {() => {
                 return (
                   <Form className="-mt-1 w-full  flex flex-col items-center ">
-                    <FieldForm text={t("text.name")} id="name" type="text" />
+                    <FieldForm text={t("text.name")} id="name" type="text" 
+                      className="w-auto"/>
                     <FieldForm
                       text={t("text.surname")}
                       id="surname"
                       type="text"
+                      className="w-auto"
                     />
-                    <FieldForm text={t("text.email")} id="email" type="email" />
+                    <FieldForm
+                      text={t("text.email")}
+                      id="email"
+                      type="email"
+                      className="w-auto"
+                    />
 
-                    <PasswordField text={t("text.password")} id="password" />
+                    <PasswordField
+                      text={t("text.password")}
+                      id="password"
+                      className="w-auto"
+                    />
                     <PasswordField
                       text={t("text.repeat_password")}
                       id="passwordRepeat"
+                      className="w-auto"
                     />
 
                     <SubmitFormButton text={t("text.registration")} />
@@ -78,7 +90,7 @@ export default function RegistrationPage() {
           </div>
 
           {/* right */}
-          <div className="w-5/12 relative bg-amber-500 rounded-3xl">
+          <div className="hidden lg:block w-5/12 relative bg-amber-500 rounded-3xl">
             <Image
               src={"/assets/decoratedNote.jpeg"}
               alt="illustrated photo"

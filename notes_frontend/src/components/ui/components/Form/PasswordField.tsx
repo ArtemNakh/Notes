@@ -1,18 +1,21 @@
 import { Field } from "formik";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface PasswordFieldProps {
   text: string;
   id: string;
+  className?:string;
 }
 export default function PasswordField({
   text = "",
   id = "",
+  className=""
 }: PasswordFieldProps) {
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <fieldset className="mt-5 border border-amber-700 rounded-2xl pl-2 py-0.5 w-100">
+    <fieldset className={twMerge(`mt-5 border border-amber-700 rounded-2xl pl-2 py-0.5 w-100`,className)}>
       <legend className="px-1 text-lg text-amber-700 font-medium">
         {text}
       </legend>
